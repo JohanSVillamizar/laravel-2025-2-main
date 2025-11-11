@@ -9,12 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('profile_photo_path', 2048)->nullable();
-        });
+        if (!Schema::hasColumn('users', 'profile_photo_path')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('profile_photo_path', 2048)->nullable();
+            });
+        }
     }
+
 
     /**
      * Reverse the migrations.
